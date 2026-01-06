@@ -4,8 +4,8 @@
     <label>Von <input type="date" name="from" value="<?= e($_GET['from'] ?? '') ?>"></label>
     <label>Bis <input type="date" name="to" value="<?= e($_GET['to'] ?? '') ?>"></label>
     <button type="submit">Filtern</button>
-    <a class="button" href="/weighins/export">Export CSV</a>
-    <a class="button" href="/import">Import</a>
+    <a class="button" href="<?= e(url('/weighins/export')) ?>">Export CSV</a>
+    <a class="button" href="<?= e(url('/import')) ?>">Import</a>
 </form>
 <table>
     <thead><tr><th>Datum</th><th>Gewicht</th><th>Notiz</th><th>Wasser</th><th>Schritte</th></tr></thead>

@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 <h1>Passwort vergessen</h1>
-<form method="POST" action="/password/forgot">
+<form method="POST" action="<?= e(url('/password/forgot')) ?>">
     <?= csrf_field(); ?>
     <label>E-Mail<br><input type="email" name="email" required></label>
     <button type="submit">Token anfordern</button>

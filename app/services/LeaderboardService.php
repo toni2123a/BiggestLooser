@@ -12,15 +12,21 @@ class LeaderboardService
         $where = 'u.is_public = 1 AND u.deleted_at IS NULL';
         $dateFilter = '';
         if ($days > 0) {
-            $dateFilter = 'AND w.date >= :from';
+            $dateFilter = 'WHERE date >= :from';
             $params['from'] = (new \DateTime("-$days days"))->format('Y-m-d');
         }
-        $sql = "SELECT u.id, u.nickname, u.height_cm, MIN(w.weight_kg) AS start_w, MAX(w.weight_kg) AS last_w, MIN(w.date) AS first_date, MAX(w.date) AS last_date, COUNT(w.id) AS entries
+        $sql = "SELECT u.id, u.nickname, u.height_cm, wstats.first_date, wstats.last_date, wstats.entries,
+                       wf.weight_kg AS start_w, wl.weight_kg AS last_w
                 FROM users u
-                JOIN weigh_ins w ON w.user_id = u.id
-                WHERE $where $dateFilter
-                GROUP BY u.id, u.nickname, u.height_cm
-                HAVING start_w IS NOT NULL AND last_w IS NOT NULL";
+                JOIN (
+                    SELECT user_id, MIN(date) AS first_date, MAX(date) AS last_date, COUNT(*) AS entries
+                    FROM weigh_ins
+                    $dateFilter
+                    GROUP BY user_id
+                ) wstats ON wstats.user_id = u.id
+                JOIN weigh_ins wf ON wf.user_id = u.id AND wf.date = wstats.first_date
+                JOIN weigh_ins wl ON wl.user_id = u.id AND wl.date = wstats.last_date
+                WHERE $where";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
         $result = [];

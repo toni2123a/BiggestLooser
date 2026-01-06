@@ -3,7 +3,7 @@
 <section class="grid">
     <div class="card">
         <h3>Neue Gruppe</h3>
-        <form method="POST" action="/groups/create">
+        <form method="POST" action="<?= e(url('/groups/create')) ?>">
             <?= csrf_field(); ?>
             <label>Name<br><input type="text" name="name" required></label>
             <button type="submit">Erstellen</button>
@@ -11,7 +11,7 @@
     </div>
     <div class="card">
         <h3>Beitritt</h3>
-        <form method="POST" action="/groups/join">
+        <form method="POST" action="<?= e(url('/groups/join')) ?>">
             <?= csrf_field(); ?>
             <label>Einladungscode<br><input type="text" name="invite_code" required></label>
             <button type="submit">Beitreten</button>

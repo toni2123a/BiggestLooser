@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 <h1>Fortschrittsfotos</h1>
-<form method="POST" action="/photos/upload" enctype="multipart/form-data">
+<form method="POST" action="<?= e(url('/photos/upload')) ?>" enctype="multipart/form-data">
     <?= csrf_field(); ?>
     <label>Datum<br><input type="date" name="date" value="<?= date('Y-m-d') ?>"></label>
     <label>Notiz<br><input type="text" name="note"></label>
@@ -10,7 +10,7 @@
 <div class="photo-grid">
     <?php foreach ($photos as $p): ?>
         <figure>
-            <img src="/uploads/<?= e(auth_user()['id']) ?>/<?= e($p['filename']) ?>" alt="Foto">
+            <img src="<?= e(url('/uploads/' . auth_user()['id'] . '/' . $p['filename'])) ?>" alt="Foto">
             <figcaption><?= e($p['date']) ?> - <?= e($p['note']) ?></figcaption>
         </figure>
     <?php endforeach; ?>

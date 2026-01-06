@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 <h1>Registrieren</h1>
-<form method="POST" action="/register">
+<form method="POST" action="<?= e(url('/register')) ?>">
     <?= csrf_field(); ?>
     <label>E-Mail<br><input type="email" name="email" required></label>
     <label>Nickname (öffentlich)<br><input type="text" name="nickname" required></label>

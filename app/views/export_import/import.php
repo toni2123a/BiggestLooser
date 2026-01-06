@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 <h1>CSV Import</h1>
-<form method="POST" action="/weighins/import" enctype="multipart/form-data">
+<form method="POST" action="<?= e(url('/weighins/import')) ?>" enctype="multipart/form-data">
     <?= csrf_field(); ?>
     <label>CSV-Datei<br><input type="file" name="csv" accept="text/csv" required></label>
     <button type="submit">Import starten</button>
