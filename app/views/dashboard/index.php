@@ -16,7 +16,7 @@
 </section>
 <section class="card">
     <h3>Schnell-Eintrag</h3>
-    <form method="POST" action="/weighins/create">
+    <form method="POST" action="<?= e(url('/weighins/create')) ?>">
         <?= csrf_field(); ?>
         <div class="row">
             <label>Datum<br><input type="date" name="date" value="<?= date('Y-m-d') ?>"></label>

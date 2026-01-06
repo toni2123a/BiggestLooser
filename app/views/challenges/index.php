@@ -6,7 +6,7 @@
         <li>
             <strong><?= e($c['title']) ?></strong> (<?= e($c['code']) ?>)<br>
             <?= e($c['description']) ?>
-            <form method="POST" action="/challenges/join" style="margin-top:6px;">
+            <form method="POST" action="<?= e(url('/challenges/join')) ?>" style="margin-top:6px;">
                 <?= csrf_field(); ?>
                 <input type="hidden" name="challenge_id" value="<?= e($c['id']) ?>">
                 <button type="submit">Teilnehmen</button>

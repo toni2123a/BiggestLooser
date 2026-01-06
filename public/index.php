@@ -6,6 +6,20 @@ use App\Middleware\CsrfMiddleware;
 use App\Middleware\RateLimitMiddleware;
 
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/';
+$basePath = rtrim(APP_URL, '/');
+if ($basePath !== '') {
+    if ($path === $basePath) {
+        $path = '/';
+    } elseif (str_starts_with($path, $basePath . '/')) {
+        $path = substr($path, strlen($basePath));
+        if ($path === '') {
+            $path = '/';
+        }
+    }
+}
+if ($path === '/index.php') {
+    $path = '/';
+}
 $method = $_SERVER['REQUEST_METHOD'];
 
 require __DIR__ . '/../app/routes.php';

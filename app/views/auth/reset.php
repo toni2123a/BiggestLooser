@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 <h1>Passwort zurücksetzen</h1>
-<form method="POST" action="/password/reset">
+<form method="POST" action="<?= e(url('/password/reset')) ?>">
     <?= csrf_field(); ?>
     <input type="hidden" name="token" value="<?= e($token ?? '') ?>">
     <label>Neues Passwort<br><input type="password" name="password" required></label>

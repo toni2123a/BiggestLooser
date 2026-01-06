@@ -41,6 +41,23 @@ try {
 
 CsrfMiddleware::ensureToken();
 
+function url(string $path = ''): string {
+    $base = rtrim(APP_URL, '/');
+    if ($path === '') {
+        return $base !== '' ? $base : '/';
+    }
+    if (preg_match('#^https?://#i', $path)) {
+        return $path;
+    }
+    if ($path[0] !== '/') {
+        $path = '/' . $path;
+    }
+    if ($base !== '' && ($path === $base || str_starts_with($path, $base . '/'))) {
+        return $path;
+    }
+    return $base !== '' ? $base . $path : $path;
+}
+
 function view(string $template, array $data = []) {
     extract($data);
     ob_start();
@@ -49,7 +66,7 @@ function view(string $template, array $data = []) {
 }
 
 function redirect(string $path) {
-    header('Location: ' . $path);
+    header('Location: ' . url($path));
     exit;
 }
 

@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 <h1>Profil</h1>
-<form method="POST" action="/profile/update" class="grid">
+<form method="POST" action="<?= e(url('/profile/update')) ?>" class="grid">
     <?= csrf_field(); ?>
     <label>Nickname<br><input type="text" name="nickname" value="<?= e($user['nickname']) ?>" required></label>
     <label>Öffentliches Profil?<br><input type="checkbox" name="is_public" <?= $user['is_public'] ? 'checked' : '' ?>></label>
@@ -13,13 +13,13 @@
     <button type="submit">Speichern</button>
 </form>
 <h2>Passwort ändern</h2>
-<form method="POST" action="/profile/password">
+<form method="POST" action="<?= e(url('/profile/password')) ?>">
     <?= csrf_field(); ?>
     <label>Neues Passwort<br><input type="password" name="password" required></label>
     <button type="submit">Aktualisieren</button>
 </form>
 <h2>Account löschen</h2>
-<form method="POST" action="/profile/delete" onsubmit="return confirm('Wirklich löschen?');">
+<form method="POST" action="<?= e(url('/profile/delete')) ?>" onsubmit="return confirm('Wirklich löschen?');">
     <?= csrf_field(); ?>
     <button type="submit" class="danger">Löschen</button>
 </form>
